@@ -1,18 +1,28 @@
 import { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Stars } from '@react-three/drei'
-import type { Mesh } from 'three'
+import type { Group } from 'three'
+import { QuakeMarkers } from './components/QuakeMarkers'
+import { useEarthquakes } from './hooks/useEarthquakes'
 
-function Globe() {
-  const ref = useRef<Mesh>(null)
+const GLOBE_RADIUS = 1
+
+function Earth() {
+  const group = useRef<Group>(null)
+  const quakes = useEarthquakes()
+
   useFrame((_, delta) => {
-    if (ref.current) ref.current.rotation.y += delta * 0.05
+    if (group.current) group.current.rotation.y += delta * 0.05
   })
+
   return (
-    <mesh ref={ref}>
-      <sphereGeometry args={[1, 48, 48]} />
-      <meshStandardMaterial color="#2b6cb0" wireframe />
-    </mesh>
+    <group ref={group}>
+      <mesh>
+        <sphereGeometry args={[GLOBE_RADIUS, 48, 48]} />
+        <meshStandardMaterial color="#2b6cb0" wireframe />
+      </mesh>
+      <QuakeMarkers quakes={quakes} radius={GLOBE_RADIUS} />
+    </group>
   )
 }
 
@@ -23,7 +33,7 @@ export default function App() {
       <ambientLight intensity={0.4} />
       <directionalLight position={[5, 3, 5]} intensity={1.2} />
       <Stars radius={80} depth={40} count={4000} factor={3} fade />
-      <Globe />
+      <Earth />
       <OrbitControls enablePan={false} minDistance={1.5} maxDistance={6} />
     </Canvas>
   )
