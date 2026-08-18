@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import { Color, Object3D } from 'three'
 import type { InstancedMesh } from 'three'
+import type { ThreeEvent } from '@react-three/fiber'
 import { latLonToVector3 } from '../lib/geo'
 import { magColor } from '../lib/color'
 import { markerRadius } from '../lib/marker'
@@ -9,9 +10,11 @@ import type { Quake } from '../lib/usgs'
 interface Props {
   quakes: Quake[]
   radius: number
+  onHover?: (quake: Quake, x: number, y: number) => void
+  onUnhover?: () => void
 }
 
-export function QuakeMarkers({ quakes, radius }: Props) {
+export function QuakeMarkers({ quakes, radius, onHover, onUnhover }: Props) {
   const mesh = useRef<InstancedMesh>(null)
 
   useLayoutEffect(() => {
@@ -32,6 +35,17 @@ export function QuakeMarkers({ quakes, radius }: Props) {
 
   if (quakes.length === 0) return null
 
+  const handleMove = (e: ThreeEvent<PointerEvent>) => {
+    if (e.instanceId === undefined || !onHover) return
+    e.stopPropagation()
+    document.body.style.cursor = 'pointer'
+    onHover(quakes[e.instanceId], e.nativeEvent.clientX, e.nativeEvent.clientY)
+  }
+  const handleOut = () => {
+    document.body.style.cursor = ''
+    onUnhover?.()
+  }
+
   return (
     <instancedMesh
       key={quakes.length}
@@ -39,6 +53,8 @@ export function QuakeMarkers({ quakes, radius }: Props) {
       args={[undefined, undefined, quakes.length]}
       // 인스턴스들이 원점 기준 지오메트리 경계 밖에 있어 컬링이 오판하므로 끈다
       frustumCulled={false}
+      onPointerMove={handleMove}
+      onPointerOut={handleOut}
     >
       <sphereGeometry args={[1, 8, 8]} />
       <meshBasicMaterial />
