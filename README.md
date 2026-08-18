@@ -23,4 +23,4 @@ npm run dev
 - [x] 경위도 → 구면 좌표 매핑, 지진 마커 표시
 - [x] 규모 기반 파문(ripple) 셰이더
 - [x] 대륙 윤곽 렌더링 (Natural Earth 110m)
-- [ ] 배포 (GitHub Pages)
+- [x] 배포 (GitHub Pages) — https://yeonjin1357.github.io/living-earth/
