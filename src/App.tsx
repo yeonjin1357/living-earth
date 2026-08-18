@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Stars } from '@react-three/drei'
+import { Bloom, EffectComposer } from '@react-three/postprocessing'
 import type { Group } from 'three'
+import { Atmosphere } from './components/Atmosphere'
 import { Continents } from './components/Continents'
 import { Hud } from './components/Hud'
 import { QuakeMarkers } from './components/QuakeMarkers'
@@ -59,7 +61,16 @@ export default function App() {
           onHover={(quake, x, y) => setHover({ quake, x, y })}
           onUnhover={() => setHover(null)}
         />
+        <Atmosphere radius={GLOBE_RADIUS} />
         <OrbitControls enablePan={false} minDistance={1.5} maxDistance={6} />
+        <EffectComposer>
+          <Bloom
+            intensity={1.1}
+            luminanceThreshold={0.25}
+            luminanceSmoothing={0.4}
+            mipmapBlur
+          />
+        </EffectComposer>
       </Canvas>
       <Hud quakes={quakes} />
       <QuakeTooltip hover={hover} />
