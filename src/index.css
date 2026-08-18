@@ -30,6 +30,149 @@ body,
   height: 100%;
 }
 
+/* ---- HUD ---- */
+
+.hud {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.hud > * {
+  position: absolute;
+}
+
+.hud-title {
+  top: 24px;
+  left: 28px;
+}
+
+.hud-title h1 {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.hud-title p,
+.hud-live p,
+.hud-legend-labels {
+  margin-top: 6px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.hud-live {
+  top: 24px;
+  right: 28px;
+  text-align: right;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+}
+
+.hud-live-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #ff4a3d;
+  vertical-align: 1px;
+  animation: hud-pulse 2s ease-in-out infinite;
+}
+
+@keyframes hud-pulse {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hud-live-dot {
+    animation: none;
+  }
+}
+
+.hud-stats {
+  bottom: 28px;
+  left: 28px;
+  max-width: 320px;
+}
+
+.hud-count {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.hud-count-label {
+  margin-left: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.hud-strongest {
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.hud-strongest strong {
+  font-weight: 600;
+}
+
+.hud-loading {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.hud-legend {
+  bottom: 28px;
+  right: 28px;
+  width: 150px;
+}
+
+.hud-legend-bar {
+  height: 3px;
+}
+
+.hud-legend-labels {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 640px) {
+  .hud-title {
+    top: 16px;
+    left: 18px;
+  }
+  .hud-live {
+    top: 16px;
+    right: 18px;
+  }
+  .hud-stats {
+    bottom: 18px;
+    left: 18px;
+    max-width: 55vw;
+  }
+  .hud-legend {
+    bottom: 18px;
+    right: 18px;
+    width: 110px;
+  }
+  .hud-count {
+    font-size: 30px;
+  }
+}
+
 /* ---- 지진 툴팁 ---- */
 
 .tooltip {

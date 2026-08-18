@@ -3,6 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Stars } from '@react-three/drei'
 import type { Group } from 'three'
 import { Continents } from './components/Continents'
+import { Hud } from './components/Hud'
 import { QuakeMarkers } from './components/QuakeMarkers'
 import { QuakeRipples } from './components/QuakeRipples'
 import { QuakeTooltip, type HoverInfo } from './components/QuakeTooltip'
@@ -60,6 +61,7 @@ export default function App() {
         />
         <OrbitControls enablePan={false} minDistance={1.5} maxDistance={6} />
       </Canvas>
+      <Hud quakes={quakes} />
       <QuakeTooltip hover={hover} />
     </div>
   )
