@@ -3,6 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Stars } from '@react-three/drei'
 import type { Group } from 'three'
 import { QuakeMarkers } from './components/QuakeMarkers'
+import { QuakeRipples } from './components/QuakeRipples'
 import { useEarthquakes } from './hooks/useEarthquakes'
 
 const GLOBE_RADIUS = 1
@@ -22,6 +23,7 @@ function Earth() {
         <meshStandardMaterial color="#2b6cb0" wireframe />
       </mesh>
       <QuakeMarkers quakes={quakes} radius={GLOBE_RADIUS} />
+      <QuakeRipples quakes={quakes} radius={GLOBE_RADIUS} />
     </group>
   )
 }
