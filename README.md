@@ -22,5 +22,5 @@ npm run dev
 - [x] USGS 지진 데이터 fetch + 폴링
 - [x] 경위도 → 구면 좌표 매핑, 지진 마커 표시
 - [x] 규모 기반 파문(ripple) 셰이더
-- [ ] 지구 텍스처/대륙 윤곽 렌더링
+- [x] 대륙 윤곽 렌더링 (Natural Earth 110m)
 - [ ] 배포 (GitHub Pages)

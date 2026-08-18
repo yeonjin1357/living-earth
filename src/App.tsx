@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Stars } from '@react-three/drei'
 import type { Group } from 'three'
+import { Continents } from './components/Continents'
 import { QuakeMarkers } from './components/QuakeMarkers'
 import { QuakeRipples } from './components/QuakeRipples'
 import { useEarthquakes } from './hooks/useEarthquakes'
@@ -20,8 +21,9 @@ function Earth() {
     <group ref={group}>
       <mesh>
         <sphereGeometry args={[GLOBE_RADIUS, 48, 48]} />
-        <meshStandardMaterial color="#2b6cb0" wireframe />
+        <meshStandardMaterial color="#0b1526" />
       </mesh>
+      <Continents radius={GLOBE_RADIUS} />
       <QuakeMarkers quakes={quakes} radius={GLOBE_RADIUS} />
       <QuakeRipples quakes={quakes} radius={GLOBE_RADIUS} />
     </group>
